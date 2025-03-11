@@ -5,3 +5,6 @@ while line:
     print(line.strip())
     line = file.readline()
 file.close()
+
+input("Press Enter to exit...")
+# End of the program
