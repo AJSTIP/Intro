@@ -23,3 +23,5 @@ if state in capitals:
     print(f"The capital of {state} is {capitals[state]}")
 else:
     print("State not found. (Perhaps you misspelled it?)")
+
+input("Press Enter to exit...")

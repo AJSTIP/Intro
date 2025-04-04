@@ -31,3 +31,5 @@ while True:
 print("\nYour basket contains:")
 for item in Basket:
     print(item)
+
+input("Press Enter to exit...")
