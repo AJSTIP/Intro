@@ -131,4 +131,5 @@ if __name__ == "__main__":
         hangman()
         if not play_again():
             print("Thanks for playing! See-Ya!")
+            input("Press Enter to exit the program...")
             break
