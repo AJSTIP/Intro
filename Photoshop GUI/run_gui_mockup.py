@@ -5,10 +5,19 @@ from tkinter import filedialog, messagebox
 from dotenv import load_dotenv
 
 # Load environment if needed
+# `load_dotenv()` is a function from the `dotenv` library in Python that loads environment variables
+# from a `.env` file into the environment. This function is commonly used to load sensitive or
+# configuration-related information from a `.env` file, such as API keys, database URLs, or other
+# settings, into the environment where the Python script is running. This allows the script to access
+# these variables without hardcoding them in the script itself, providing a more secure and flexible
+# way to manage configuration settings.
 load_dotenv()
 
 # You can customize this Photoshop path
 PHOTOSHOP_PATH = r"C:\Program Files\Adobe\Adobe Photoshop 2024\Photoshop.exe"
+# The line `JSX_SCRIPT = "scripts/insert_design.jsx"` is assigning a file path to a variable named
+# `JSX_SCRIPT`. This variable is storing the path to a JSX script file named `insert_design.jsx`
+# located in a directory named `scripts`.
 JSX_SCRIPT = "scripts/insert_design.jsx"
 
 def select_file(title, filetypes):
@@ -52,18 +61,21 @@ class MockupApp:
         tk.Button(self.root, text="🎯 Generate 3D Preview", command=self.generate_mockup, bg="green", fg="white", padx=10, pady=5).pack(pady=10)
 
     def select_svg(self):
-        file = select_file("Select SVG Design", [("SVG files", "*.svg")])
-        if file:
+        if file := select_file("Select SVG Design", [("SVG files", "*.svg")]):
             self.svg_path.set(file)
 
     def select_mockup(self):
-        file = select_file("Select Mockup PSD/TIF", [("Photoshop files", "*.psd *.tif")])
-        if file:
+        if file := select_file(
+            "Select Mockup PSD/TIF", [("Photoshop files", "*.psd *.tif")]
+        ):
             self.mockup_path.set(file)
 
     def select_output(self):
-        file = filedialog.asksaveasfilename(title="Save Output", defaultextension=".png", filetypes=[("PNG Image", "*.png")])
-        if file:
+        if file := filedialog.asksaveasfilename(
+            title="Save Output",
+            defaultextension=".png",
+            filetypes=[("PNG Image", "*.png")],
+        ):
             self.output_path.set(file)
 
     def generate_mockup(self):
