@@ -3,8 +3,8 @@ import tkinter as tk
 import time
 
 class TowerOfHanoiGUI:
-    def __init__(self, num_disks):
-        self.num_disks = num_disks
+    def __init__(self):
+        self.num_disks = 4  # Default number of disks
         self.window = tk.Tk()
         self.window.title("Towers of Hanoi")
         self.canvas = tk.Canvas(self.window, width=600, height=400, bg="white")
@@ -18,7 +18,16 @@ class TowerOfHanoiGUI:
         self.create_rods()
         self.create_disks()
 
-        # Add reset button
+        # Add slider to change the number of disks
+        self.slider = tk.Scale(self.window, from_=1, to=10, orient="horizontal", label="Number of Disks")
+        self.slider.set(self.num_disks)
+        self.slider.pack()
+
+        # Add Start button
+        start_button = tk.Button(self.window, text="Start", command=self.start_game)
+        start_button.pack()
+
+        # Add Reset button
         reset_button = tk.Button(self.window, text="Reset", command=self.reset_game)
         reset_button.pack()
 
@@ -65,13 +74,20 @@ class TowerOfHanoiGUI:
             dy = (new_y_start - current_y_start) * 0.2
             self.canvas.move(disk, dx, dy)
             self.canvas.update()
-            time.sleep(0.005)
+            time.sleep(0.00005)
 
     def reset_game(self):
         self.canvas.delete("all")
         self.rods = [[], [], []]
+        self.num_disks = self.slider.get()  # Update the number of disks from the slider
         self.create_rods()
         self.create_disks()
+        self.update_move_label(0)
+
+    def start_game(self):
+        self.reset_game()  # Reset the game before starting
+        move_number = [0]
+        towers_of_hanoi(self, self.num_disks, 0, 2, 1, move_number)
 
     def update_move_label(self, move_number):
         self.move_label.config(text=f"Move: {move_number}")
@@ -93,7 +109,5 @@ def tracking(move_number, gui, source, target):
     gui.move_disk(source, target)
 
 if __name__ == "__main__":
-    num_disks = 6  # You can change the number of disks here
-    gui = TowerOfHanoiGUI(num_disks)
-    towers_of_hanoi(gui, num_disks, 0, 2, 1)
+    gui = TowerOfHanoiGUI()
     gui.window.mainloop()
